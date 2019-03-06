@@ -129,7 +129,7 @@ class Register extends React.Component {
     return (
       <Grid className='app' textAlign='center' verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as='h2' icon color='orange' textAlign='center'>
+          <Header as='h1' icon color='orange' textAlign='center'>
             <Icon name='write' color='orange' />
             Register for Scrite.Club
           </Header>
@@ -197,7 +197,7 @@ class Register extends React.Component {
             </Message>
           )}
           <Message>
-            Already a user? <Link to='/Login'>Login</Link>{' '}
+            Already a user? <Link to='/login'>Login</Link>{' '}
           </Message>
         </Grid.Column>
       </Grid>
