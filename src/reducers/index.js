@@ -1,5 +1,5 @@
-import { combineReducers } from "redux";
-import * as actionTypes from "../actions/types";
+import { combineReducers } from 'redux';
+import * as actionTypes from '../actions/types';
 
 const initialUserState = {
   currentUser: null,
