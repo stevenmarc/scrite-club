@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import './App.css';
@@ -11,20 +10,6 @@ import MetaPanel from './MetaPanel/MetaPanel';
 
 const App = ({ currentUser }) => (
   <Grid columns='equal' className='app' style={{ background: '#eee' }}>
-=======
-import React from "react";
-import { Grid } from "semantic-ui-react";
-import "./App.css";
-import { connect } from "react-redux";
-
-import ColorPanel from "./ColorPanel/ColorPanel";
-import SidePanel from "./SidePanel/SidePanel";
-import Messages from "./Messages/Messages";
-import MetaPanel from "./MetaPanel/MetaPanel";
-
-const App = ({ currentUser }) => (
-  <Grid columns="equal" className="app" style={{ background: "#eee" }}>
->>>>>>> 022ba7e1ba316497b83352aa85561833fc790431
     <ColorPanel />
     <SidePanel currentUser={currentUser} />
 
