@@ -14,7 +14,9 @@ class Messages extends React.Component {
     channel: this.props.currentChannel,
     user: this.props.currentUser,
     numUniqueUsers: '',
-    searchTerm: ''
+    searchTerm: '',
+    searchLoading: false,
+    searchResults: []
   };
 
   componentDidMount() {
@@ -41,7 +43,25 @@ class Messages extends React.Component {
   };
 
   handleSearchChange = event => {
-    this.setState({ searchTerm: event.target.value });
+    this.setState({ searchTerm: event.target.value, searchLoading: true }, () =>
+      this.handleSearchMessages()
+    );
+  };
+
+  handleSearchMessages = () => {
+    const channelMessages = [...this.state.messages];
+    const regex = RegExp(this.state.searchTerm, 'gi');
+    const searchResults = channelMessages.reduce((acc, message) => {
+      if (
+        (message.content && message.content.match(regex)) ||
+        message.user.name.match(regex)
+      ) {
+        acc.push(message);
+      }
+      return acc;
+    }, []);
+    this.setState({ searchResults });
+    setTimeout(() => this.setState({ searchLoading: false }), 1000);
   };
 
   countUniqueUsers = messages => {
@@ -69,18 +89,32 @@ class Messages extends React.Component {
   displayChannelName = channel => (channel ? `#${channel.name}` : '');
 
   render() {
-    const { messagesRef, messages, channel, user, numUniqueUsers } = this.state;
+    // prettier ignore
+    const {
+      messagesRef,
+      messages,
+      channel,
+      user,
+      numUniqueUsers,
+      searchTerm,
+      searchResults,
+      searchLoading
+    } = this.state;
 
     return (
       <React.Fragment>
         <MessagesHeader
           channelName={this.displayChannelName(channel)}
           numUniqueUsers={numUniqueUsers}
+          handleSearchChange={this.handleSearchChange}
+          searchLoading={searchLoading}
         />
 
         <Segment>
           <Comment.Group className='messages'>
-            {this.displayMessages(messages)}
+            {searchTerm
+              ? this.displayMessages(searchResults)
+              : this.displayMessages(messages)}
           </Comment.Group>
         </Segment>
 
